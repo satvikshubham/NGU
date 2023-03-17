@@ -36,6 +36,7 @@
 
 
 import sympy as sym
+import math
 sym.init_printing()
 x,y,z = sym.symbols('x,y,z')
 c1 = sym.Symbol('c1')
