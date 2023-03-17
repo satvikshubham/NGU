@@ -83,11 +83,9 @@ def Newton_system(equations, esp = 0.001, max_iter = 100):
             eqs.append(_jacobian[i].dot(_vars))
             eqs[i] = sympy.Eq(eqs[i], F_value[i])
         
-        print(eqs, type(eqs))
-        print(_vars, type(_vars))
-        
         delta = solve(eqs, _vars)
-        print(delta, type(delta))
+        print(delta)
+
         for keys, values in delta.items():
             _initial_guesses[keys] = values + _initial_guesses[keys]
         F_value = numpy.array([_equation.subs(_initial_guesses) for _equation in _equations])
@@ -110,4 +108,4 @@ def Newton_system(equations, esp = 0.001, max_iter = 100):
 
 equations = ["a - b + c - 10", "a + b - 5", "a + b + c - 2"]
 n = len(equations)
-print(Newton_system(equations,0.001, 10))
+print(Newton_system(equations,0.001, 1))

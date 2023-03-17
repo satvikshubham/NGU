@@ -7,6 +7,7 @@ The code solves the non-linear system of equations with multi-variables using th
 3. Fix Jacobian matrix sparsity
 4. Diagonal dominance
 5. Convergence criteria
+6. Matrix charactertics and use differnet methods
 
 ### Micellaneous:
 The solve function stops on slightly complex equations
