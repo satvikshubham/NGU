@@ -1,4 +1,5 @@
 # Handling of sparse matrix
+https://caam37830.github.io/book/02_linear_algebra/sparse_linalg.html
 A matrix is called sparse only if the number of non-zero elements is equal to the number or rows or columns
 
 Hence sparsity is defined as $s = \frac{no\;of\;non-zero\;elements}{total\;number\;of\;elements}$

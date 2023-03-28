@@ -204,6 +204,7 @@ def gmres_mgs(surf_array, field_array, X, b, param, ind0, timing, kernel):
                     H[inner, inner] = dotu(Qblock[0,:], H[inner, inner:inner+2])
                     H[inner, inner+1] = 0.0
 
+
             iteration+= 1
 
             if inner < max_inner-1:
