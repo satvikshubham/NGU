@@ -29,3 +29,21 @@ $K_n = K_n (A, r_0) = span\{r_0, Ar_0,A^2r_0, ..., A^{n-1}r_0$
 Where $r_0 = b - Ax_0$ is the initial error given an initial guess such that $x_0 \ne 0$
 
 GMRES approximates the exact solution of $Ax =b$ by the vector $x_n \in K_n$ that minimizes the euclidean norm of the residual $r_n = b-Ax_n$.
+
+
+## Things to look into the [GMRES file](./gmres.py)
+
+1. What is the need for rotation in the function apply_givens
+
+2. Main function gmres_mgs
+    - Look into parameters passed to the function that is the surf_array, the field_array
+    - Initial guess 
+    - b the right hand side
+    - param class parameters related to the surface
+    - ind0 class it contains the indices of different parts of the code.
+    - timing class it contains the timing information for the different part of the code **doesn't seem important**.
+    - kernel pycuda source module.
+
+    Returns
+    - array, an updated guess to the solution
+    - iteration, number of outer iterations
