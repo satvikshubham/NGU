@@ -2,6 +2,19 @@ import sympy
 import numpy
 from sympy import solve
 from sympy.abc import a,b,c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z
+import gmres
+
+def check_sparsity(_jacobian,s = 0.5):
+    count = 0
+    for i in range (len(_jacobian)):
+        for j in range (len (_jacobian[0])):
+            if _jacobian[i][j] = 0:
+                count += 1
+            else:
+                continue
+    if count > s*len(_jacobian)*len(_jacobian[0]):
+        return True
+    return False
 
 def bisection(equations, vals_a, vals_b, vars, tol=1e-6, max_iter=100):
     # if (numpy.sign(equations.subs(vals_a)) == numpy.sign(equations.subs(vals_b))):

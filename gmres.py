@@ -259,3 +259,4 @@ def gmres_mgs(surf_array, field_array, X, b, param, ind0, timing, kernel):
     #end outer loop
 
     return X, iteration
+
