@@ -8,7 +8,7 @@ def check_sparsity(_jacobian,s = 0.5):
     count = 0
     for i in range (len(_jacobian)):
         for j in range (len (_jacobian[0])):
-            if _jacobian[i][j] = 0:
+            if _jacobian[i][j] == 0:
                 count += 1
             else:
                 continue
