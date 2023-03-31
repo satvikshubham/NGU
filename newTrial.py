@@ -14,7 +14,8 @@ def check_sparsity(_jacobian,s = 0.5):
                 continue
     if count > s*len(_jacobian)*len(_jacobian[0]):
         return True
-    return False
+    else:
+        return False
 
 def bisection(equations, vals_a, vals_b, vars, tol=1e-6, max_iter=100):
     # if (numpy.sign(equations.subs(vals_a)) == numpy.sign(equations.subs(vals_b))):
