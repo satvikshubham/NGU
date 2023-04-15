@@ -19,12 +19,14 @@ def eq_callback(exprs, variables, x):
     # return [eq1, eq2]
     
     # make generic version of the above code
+    print('x is here',x)
+    print('variables is here', variables)
     for i in range (len(variables)):
         variables[i] = x[i]
-    
-    # for i in range(len(exprs)):
-    
-    # return exprs
+    equations = []
+    for i in range(len(exprs)):
+        equations.append(exprs[i].subs(variables))
+    return equations    
 
 def get_solution(n, equations):
     # extract distinct letters from the equations and store it in a list
@@ -34,6 +36,7 @@ def get_solution(n, equations):
             if equations[i][j].isalpha() and equations[i][j] not in variables:
                 variables.append(equations[i][j])
     # assign variables to indices 
+    num_vars = len(variables)
     d = {}
     for i in range(len(variables)):
         d[variables[i]] = i
@@ -48,7 +51,7 @@ def get_solution(n, equations):
                 eq_len_i += 1
         parsed_equations.append(equations[i])
     
-    
+    symbolic_sys = SymbolicSys.from_callback(eq_callback(parsed_equations, variables, x), num_vars)
     # for i in range(len(equations)):
     #     # replace '^' with '**'
     #     for j in range(len(equations[i])):
