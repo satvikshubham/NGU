@@ -47,3 +47,5 @@ GMRES approximates the exact solution of $Ax =b$ by the vector $x_n \in K_n$ tha
     Returns
     - array, an updated guess to the solution
     - iteration, number of outer iterations
+
+
