@@ -1,50 +1,58 @@
-
-# def solve(equations, esp = 0.0001, max_iter = 100):
-#     _vars, _equations, _constants = set_inputs(equations)
-#     _jacobian = compute_jacobian(_equations, _vars)
-#     _initial_guesses = initial_guesses(_equations[0], _vars, _constants)
-#     print("Jacobian:\t", _jacobian)
-#     print("Equations:\t",_equations)
-#     print("Variables:\t",_vars)
-#     print("Constants:\t",_constants)
-#     print("Initial Guesses:\t",initial_guesses(_equations[0], _vars, _constants))
-#     # initial_guess_of_solution = 
-#     number_of_iterations = 0
-#     _vars_delta = [0 for i in range(len(_vars))]
-    
-    
-    
-#     while (number_of_iterations < max_iter):
-#         # for i in range(len(_vars)):
-#         #     _vars_delta[i] = _equations[i].subs(_initial_guesses) / _jacobian[i][i].subs(_initial_guesses)
-#         #     _initial_guesses[_vars[i]] = _initial_guesses[_vars[i]] - _vars_delta[i]
-#         # number_of_iterations += 1
-#         # print(_vars_delta)
-#         # if (all(abs(delta) < esp for delta in _vars_delta)):
-#         #     return _initial_guesses
-#         # delta = sympy.Matrix(_jacobian).inv() * sympy.Matrix([equation.subs(_initial_guesses) for equation in _equations])
-        
-#         delta = numpy.linalg(_jacobian, equations.subs(_initial_guesses))
-#         _initial_guesses = {var: _initial_guesses[var] - delta[i] for i, var in enumerate(_vars)}
-#         number_of_iterations += 1
-        
-#         if (all(abs(delta) < esp for delta in _vars_delta)):
-#             print("Number of iterations:\t",number_of_iterations)
-#             return _initial_guesses
-    
-#     return 0
+from pyneqsys.symbolic import SymbolicSys
+from sympy.parsing.sympy_parser import parse_expr
+from sympy import *
+import re
 
 
-import sympy as sym
-import math
-sym.init_printing()
-x,y,z = sym.symbols('x,y,z')
-c1 = sym.Symbol('c1')
-f = sym.Eq(2*x**2+y+z,1)
-g = sym.Eq(x+2*y+z, c1)
-h = sym.Eq(-2*x+y, -z)
-l = [f, g, h]
-a = [x, y, z]
-print(l,type(l))
-print(a,type(a))
-print(sym.solve([f,g,h],[x,y,z]))
+class Solution():
+    def __init__(self, equations):
+        self.equations = []
+        self.variables = []
+        self.num_variables = 0
+        self.num_equations = 0
+        self.setup(equations)
+    
+    def setup(self, equations):
+        self.equations = equations
+        var_pattern = re.compile(r'\b[a-zA-Z]+\b')
+        variables = []
+        for i in range(len(equations)):
+            variables = variables + var_pattern.findall(equations[i])
+        self.variables = list(set(variables))
+        to_remove = ['sin', 'cos', 'tan', 'sqrt', 'log', 'ln', 'exp', 'pi', 'e']
+        for i in range(len(to_remove)):
+            if to_remove[i] in self.variables:
+                self.variables.remove(to_remove[i])
+        # replace '^' with '**'
+        for i in range(len(self.equations)):
+            temp_len = len(self.equations[i])
+            for j in range(temp_len):
+                if self.equations[i][j] == '^':
+                    self.equations[i] = self.equations[i][:j] + '**' + self.equations[i][j+1:]
+                    temp_len += 1
+        self.num_variables = len(self.variables)
+        self.num_equations = len(self.equations)
+    
+    def eq_callback(self,_x):
+        # shallow copy variables from self.variables
+        variables = self.variables[:]
+        for i in range(self.num_variables):
+            variables[i] = _x[i]
+        equations = []
+        for i in range(self.num_equations):
+            eqn = parse_expr(self.equations[i])
+            eqn_subs = eqn.subs(variables)
+            equations.append(eqn_subs)
+    
+        return equations
+    
+    def get_solution(self):
+        symbolic_sys = SymbolicSys.from_callback(self.eq_callback, self.num_variables)
+        x0, info = symbolic_sys.solve([1, 2])
+        assert info['success']
+        return x0
+
+
+equations = ["(x - y)**1/2 + x - 1", "sin(x - y) + xy - 1*e^(2)"]
+solutions = Solution(equations)
+print(solutions.get_solution())
