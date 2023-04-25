@@ -12,9 +12,9 @@ S = 23
 
 
 m = GEKKO()
-a, b, c, d, e, f, g, h, i, j = [m.Var(1) for i in range(10)]
-m.Equations([5-(W+S*9)*a+S*9*b-S*20*a**2+S*20*b**2 == 0,
-             W*a-(W+S*9)*b+S*9*c-S*20*b**2+S*20*c**2 == 0,
+abc, b, c, d, e, f, g, h, i, j = [m.Var(1) for i in range(10)]
+m.Equations([5-(W+S*9)*abc+S*9*b-S*20*abc**2+S*20*b**2 == 0,
+             W*abc-(W+S*9)*b+S*9*c-S*20*b**2+S*20*c**2 == 0,
              W*b-(W+S*9)*c+S*9*d-S*20*c**2+S*20*d**2 == 0,
              W*c-(W+S*9)*d+S*9*e-S*20*d**2+S*20*e**2 == 0,
              W*d-(W+S*9)*e+S*9*f-S*20*e**2+S*20*f**2 == 0,
@@ -24,4 +24,4 @@ m.Equations([5-(W+S*9)*a+S*9*b-S*20*a**2+S*20*b**2 == 0,
              W*h-(W+9*s)*i-9*s*j-20*s*i**2-20*s*j**2 == 0,
              W*i-(W+9*s)*j-20*s*j**2 == 0])
 m.solve(disp=True)
-print(a.value, b.value, c.value, d.value, e.value, f.value, g.value, h.value, i.value, j.value)
+print(abc.value, b.value, c.value, d.value, e.value, f.value, g.value, h.value, i.value, j.value)

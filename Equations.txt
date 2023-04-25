@@ -1,0 +1,25 @@
+-P1/rhoA - (1+kent)*(Mpa/rhoA/A1)**2/2
+-P1/rhoA + P2/rhoT + (1+kbend+kexp)*(Mpa/rhoT/A2)**2/2 - (Mpa/rhoA/A1)**2/2 + g*z2
+-P2/rhoT + P3/rhoT + (1+kcont)*(Mpa/rhoT/A3)**2/2 - (Mpa/rhoT/A2)**2/2 + g*(z3-z2) + C1*(z3-z2)/rhoT/A2*Mpa + C2*(z3-z2)/rhoT/A2**2*Mpa**2
+-P3/rhoT + P3ppp/rhoT + g*(z3pp-z3) + C1*(z3pp-z3)/rhoT/A3*Mpa + C2*(z3pp-z3)/rhoT/A3**2*Mpa**2
+-P3p/rhoA - g*z3p
+-P3pp/rhoA + P3p/rhoA - (1+kent)*(Msa1/rhoA/A3pp)**2/2
+-P3pp/rhoA + P3ppp/rhoT + C1*d4/2/rhoT/A3pp*Msa1 + C2*d4/2/rhoT/A3pp**2*Msa1**2
+-P3ppp/rhoT + P4/rhoT + (1+kexp)*((Mpa+Msa1)/rhoT/A4)**2/2 - ((Mpa+Msa1)/rhoT/A3)**2/ + g*(z4-z3pp) + C1*(z4-z3pp)/rhoT/A4*(Mpa+Msa1) + C2*(z4-z3pp)/rhoT/A4**2*(Mpa+Msa1)**2
+P4/rhoT + P5/rhoT + (1+kexp)*((Mpa+Msa1)/rhoT/A5)**2/2 - ((Mpa+Msa1)/rhoT/A4)**2/2 + g*(z5-z4)
+-P5/rhoT + P5ppp/rhoT + g*(z5pp-z5)
+-P2p/rhoA + P5p/rhoA + g*(z5p-z2)
+-P5pp/rhoA + P5p/rhoA - (0+kent)*(Msa2/rhoA/A5pp)**2/2
+-P5pp/rhoA + P5ppp/rhoT + (Msa2/rhoT/A5pp)**2/2 - (Msa2/rhoA/A5pp)**2/2
+-P5ppp/rhoT + P6/rhoT + g*(z6-z5pp)
+P6/rhoT + P7/rhoT + g*(z7-z6) + (1)*((Mpa+Msa1+n1*Msa2)/rhoT/A7)**2/2 - ((Mpa+Msa1+n1*Msa2)/rhoT/A6)**2/2
+-P7/rhoT + P7ppp/rhoT + g*(z7pp-z7)
+-P5p/rhoA + P7p/rhoA + g*(z7p-z5p)
+-P7pp/rhoA  + P7p/rhoA - (0+kent)*(Msa3/rhoA/A7pp)**2/2
+-P7pp/rhoA + P7ppp/rhoT + (Msa3/rhoT/A7pp)**2/2 - (Msa3/rhoA/A7pp)**2/2
+-P7ppp/rhoT + P8/rhoT + g*(z8-z7pp)
+-P8/rhoT + P9/rhoT + g*(z9-z8) + (1)*((Mpa+Msa1+n1*Msa2+n2*Msa3)/rhoT/A9)**2/2 - ((Mpa+Msa1+n1*Msa2+n2*Msa3)/rhoT/A8)**2/2
+-P9/rhoT + P9p/rhoT  - (1+kexit)*((Mpa+Msa1+n1*Msa2+n2*Msa3)/rhoT/A9)**2/2
+-P9p/rhoA - g*z9
+-P1ppp/rhoA + P2p/rhoA  + (1+kbend+kexp)*((n1*Msa2+n2*Msa3)/rhoA/A2p)**2/2 - ((n1*Msa2+n2*Msa3)/rhoA/A1ppp)**2/2 + g*z2
+-P1ppp/rhoA - (1+kent)*((n1*Msa2+n2*Msa3)/rhoA/A1ppp)**2/2
