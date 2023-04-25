@@ -34,12 +34,10 @@ class Solution():
         # convert variables to symbols
         self.variables = [Symbol(i) for i in self.variables]
         for i in range (len(self.equations)):
-            self.equations[i] = parse_expr(self.equations[i])
+            parse_expr(self.equations[i])
             
         self.num_variables = len(self.variables)
         self.num_equations = len(self.equations)
-        print(self.equations)
-        print(self.variables)
 
 
 equations = ["(x - y)^1/2 + x == 1", "sin(x - y) + xy - 1*e^(2) == 0"]
