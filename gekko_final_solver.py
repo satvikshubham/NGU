@@ -1,6 +1,6 @@
-from pyneqsys.symbolic import SymbolicSys
-from sympy.parsing.sympy_parser import parse_expr
+import re
 from sympy import *
+from gekko import GEKKO
 import re
 
 
@@ -30,29 +30,17 @@ class Solution():
                 if self.equations[i][j] == '^':
                     self.equations[i] = self.equations[i][:j] + '**' + self.equations[i][j+1:]
                     temp_len += 1
+        
+        # convert variables to symbols
+        self.variables = [Symbol(i) for i in self.variables]
+        for i in range (len(self.equations)):
+            self.equations[i] = parse_expr(self.equations[i])
+            
         self.num_variables = len(self.variables)
         self.num_equations = len(self.equations)
-    
-    def eq_callback(self,_x):
-        # shallow copy variables from self.variables
-        variables = self.variables[:]
-        for i in range(self.num_variables):
-            variables[i] = _x[i]
-        equations = []
-        for i in range(self.num_equations):
-            eqn = parse_expr(self.equations[i])
-            eqn_subs = eqn.subs(variables)
-            equations.append(eqn_subs)
-    
-        return equations
-    
-    def get_solution(self):
-        symbolic_sys = SymbolicSys.from_callback(self.eq_callback, self.num_variables)
-        x0, info = symbolic_sys.solve([1, 2])
-        assert info['success']
-        return x0
+        print(self.equations)
+        print(self.variables)
 
 
-equations = ["(x - y)**1/2 + x = 1", "sin(x - y) + xy - 1*e^(2)"]
+equations = ["(x - y)^1/2 + x == 1", "sin(x - y) + xy - 1*e^(2) == 0"]
 solutions = Solution(equations)
-print(solutions.get_solution())
