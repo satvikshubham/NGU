@@ -1,19 +1,19 @@
-import re
-from sympy import *
 from gekko import GEKKO
+import sympy
 import re
 
 
 class Solution():
-    def __init__(self, equations):
+    def __init__(self, equations, num_variables):
         self.equations = []
         self.variables = []
-        self.num_variables = 0
+        self.num_variables = num_variables
         self.num_equations = 0
-        self.setup(equations)
-    
-    def setup(self, equations):
-        self.equations = equations
+        self.get_variables(equations)
+        self.solution(equations)
+        
+        
+    def get_variables(self, equations):
         var_pattern = re.compile(r'\b[a-zA-Z]+\b')
         variables = []
         for i in range(len(equations)):
@@ -23,22 +23,90 @@ class Solution():
         for i in range(len(to_remove)):
             if to_remove[i] in self.variables:
                 self.variables.remove(to_remove[i])
-        # replace '^' with '**'
-        for i in range(len(self.equations)):
-            temp_len = len(self.equations[i])
-            for j in range(temp_len):
-                if self.equations[i][j] == '^':
-                    self.equations[i] = self.equations[i][:j] + '**' + self.equations[i][j+1:]
-                    temp_len += 1
         
-        # convert variables to symbols
-        self.variables = [Symbol(i) for i in self.variables]
-        for i in range (len(self.equations)):
-            parse_expr(self.equations[i])
+    def solution(self, equations):        
+        # Create a Gekko model
+        m = GEKKO()
+
+        # Define the variables (assuming x and y are the only variables)
+        
+        input_strings = equations
+        variable_names = []
+        for i in range(len(self.variables)):
+            variable_names.append(str(self.variables[i]))
             
-        self.num_variables = len(self.variables)
-        self.num_equations = len(self.equations)
+        variables = [m.Var() for _ in range(len(variable_names))]
+        variable_dict = dict(zip(variable_names, variables))
+        
+        # Convert input strings to sympy expressions
+        sympy_exprs = []
+        for eq in input_strings:
+            try:
+                sympy_exprs.append(sympy.sympify(eq.replace('=', '-')))
+            except sympy.SympifyError as e:
+                print(f"Error: {e}")
+                print(f"Expression: {eq}")
+
+        # Define the Gekko equivalent of the sympy functions
+        gekko_functions = {
+            sympy.sin: m.sin,
+            sympy.cos: m.cos,
+            sympy.tan: m.tan,
+            sympy.exp: m.exp,
+            sympy.log: m.log,
+            sympy.sqrt: m.sqrt,
+        }
+
+        # Convert sympy expressions to Gekko expressions
+        def sympy_to_gekko(expr, variables):
+            if expr.is_Atom:
+                if expr.is_Symbol:
+                    return variable_dict[expr.name]
+                else:
+                    return expr
+            else:
+                if expr.func in gekko_functions:
+                    gekko_func = gekko_functions[expr.func]
+                    return gekko_func(*[sympy_to_gekko(arg, variables) for arg in expr.args])
+                elif expr.func == sympy.Pow:
+                    return m.exp(sympy_to_gekko(expr.args[1], variables) * m.log(sympy_to_gekko(expr.args[0], variables)))
+                elif expr.func == sympy.Add:
+                    return sum([sympy_to_gekko(arg, variables) for arg in expr.args])
+                elif expr.func == sympy.Mul:
+                    result = sympy_to_gekko(expr.args[0], variables)
+                    for arg in expr.args[1:]:
+                        result *= sympy_to_gekko(arg, variables)
+                    return result
+                else:
+                    try:
+                        return expr.func(*[sympy_to_gekko(arg, variables) for arg in expr.args])
+                    except Exception as e:
+                        print(f"Error: {e}")
+                        print(f"Unsupported expression: {expr}")
+                        raise
 
 
-equations = ["(x - y)^1/2 + x == 1", "sin(x - y) + xy - 1*e^(2) == 0"]
-solutions = Solution(equations)
+        gekko_exprs = [sympy_to_gekko(expr, variables) for expr in sympy_exprs]
+
+        # Add equations to the Gekko model
+        for expr in gekko_exprs:
+            m.Equation(expr == 0)
+
+        # Solve the system of equations
+        m.solve(disp=False)
+
+        
+        print(variables)
+        print(variable_dict)
+        print(variable_names)
+        # Print the solution
+        for var in variables:
+            print(f"{var.name}: {var.value[0]}")
+            
+      
+            
+
+
+input_strings = ["(axbu - sinaoq)**(1/2) + axbu = 1", "sin(axbu - sinaoq) + axbu*sinaoq - exp(2) = 0"]
+num_variables = 2
+s = Solution(input_strings, num_variables)
