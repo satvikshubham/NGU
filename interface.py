@@ -62,6 +62,7 @@ class EquationInputUI(tk.Frame):
         # clear input boxes for equations
         for equation_input in self.equation_inputs:
             equation_input.delete(0, tk.END)
+        self.num_equations_input.delete(0, tk.END)
 
         # disable submit and clear buttons
         self.clear_button["state"] = "disabled"
