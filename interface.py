@@ -67,23 +67,18 @@ class EquationInputUI(tk.Frame):
         self.clear_button["state"] = "disabled"
         
     def show_solutions(self):
-        # get equations entered by user
         equations = [equation_input.get() for equation_input in self.equation_inputs]
-
-        # solve each equation and display solution
+        s = gfs.Solution()
+        solutions = s.solution(equations, len(equations))
         self.solution_labels = []
-        for i, equation in enumerate(equations):
-            try:
-                solution = sp.solve(equation)
-                label_text = f"Solution to Equation {i+1}: {solution}"
-            except:
-                label_text = f"No solution found for Equation {i+1}"
-
+        print(solutions)
+        i = 0
+        for key, value in solutions.items():
+            label_text = f"Solution to variable {key}: {value[0]}"
             label = tk.Label(self, text=label_text)
             label.grid(row=i+2, column=2, padx=10, pady=10, sticky="w")
             self.solution_labels.append(label)
-
-        # disable show solutions button
+            i += 1
         self.show_solutions_button["state"] = "disabled"
             
 if __name__ == "__main__":
