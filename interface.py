@@ -1,5 +1,6 @@
 import tkinter as tk
 import sympy as sp
+import gekko_final_solver as gfs
 
 class EquationInputUI(tk.Frame):
     def __init__(self, master=None):
@@ -38,7 +39,8 @@ class EquationInputUI(tk.Frame):
     def create_equation_inputs(self):
         # get number of equations entered by user
         num_equations = int(self.num_equations_input.get())
-
+    
+        # get solution variables
         # create labels and input boxes for equations
         self.equation_labels = []
         self.equation_inputs = []
