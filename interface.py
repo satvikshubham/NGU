@@ -29,7 +29,7 @@ class EquationInputUI(tk.Frame):
 
         # create clear button
         self.clear_button = tk.Button(self, text="Clear", command=self.clear_inputs, state="disabled")
-        self.clear_button.grid(row=0, column=5, padx=10, pady=10, sticky="w")
+        self.clear_button.grid(row=1, column=3, padx=10, pady=10, sticky="w")
 
         # create button to show solutions
         self.show_solutions_button = tk.Button(self, text="Show \nSolutions", command=self.show_solutions, state="disabled")
@@ -47,12 +47,12 @@ class EquationInputUI(tk.Frame):
         for i in range(num_equations):
             # create label for equation number
             label = tk.Label(self, text=f"Equation {i+1}:")
-            label.grid(row=i+1, column=0, padx=10, pady=10, sticky="w")
+            label.grid(row=i+2, column=0, padx=10, pady=10, sticky="w")
             self.equation_labels.append(label)
 
             # create input box for equation
             equation_input = tk.Entry(self)
-            equation_input.grid(row=i+1, column=1, padx=10, pady=10, sticky="w")
+            equation_input.grid(row=i+2, column=1, padx=10, pady=10, sticky="w")
             self.equation_inputs.append(equation_input)
 
         self.clear_button["state"] = "normal"
@@ -71,14 +71,19 @@ class EquationInputUI(tk.Frame):
         s = gfs.Solution()
         solutions = s.solution(equations, len(equations))
         self.solution_labels = []
-        print(solutions)
         i = 0
-        for key, value in solutions.items():
-            label_text = f"Solution to variable {key}: {value[0]}"
-            label = tk.Label(self, text=label_text)
+        if solutions == None:
+            label = tk.Label(self, text="No solution")
             label.grid(row=i+2, column=2, padx=10, pady=10, sticky="w")
             self.solution_labels.append(label)
             i += 1
+        else:
+            for key, value in solutions.items():
+                label_text = f"Solution to variable {key}: {value[0]}"
+                label = tk.Label(self, text=label_text)
+                label.grid(row=i+2, column=2, padx=10, pady=10, sticky="w")
+                self.solution_labels.append(label)
+                i += 1
         self.show_solutions_button["state"] = "disabled"
             
 if __name__ == "__main__":

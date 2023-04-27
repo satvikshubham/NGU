@@ -188,8 +188,7 @@ class Solution():
             try:
                 sympy_exprs.append(sympy.sympify(eq.replace('e', 'E').replace('^', '**').replace('=', '-')))
             except sympy.SympifyError as e:
-                print(f"Error: {e}")
-                print(f"Expression: {eq}")
+                return None
         gekko_functions = {
             sympy.sin: m.sin,
             sympy.cos: m.cos,
