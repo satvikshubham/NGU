@@ -1,8 +1,5 @@
 import sympy
 sympy.init_printing()
-100 = 100
-10 = 10
-23 = 23
 
 a, b, c, d, e, f, g, h, i, j = sympy.symbols('a,b,c,d,e,f,g,h,i,j')
 # f = sympy.Eq(x**2 + x*y, 1)

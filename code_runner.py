@@ -1,8 +1,7 @@
-
 import gekko_solver
 
 equations = []
-equations_file = 'Equations.txt'
+equations_file = '_Equations.txt'
 with open(equations_file, 'r') as f:
     for line in f:
         equations.append(line.strip())
@@ -10,7 +9,7 @@ with open(equations_file, 'r') as f:
 s = gekko_solver.Solution()
 
 # write answers to file 
-answers_file = 'Answers.txt'
+answers_file = '_Answers.txt'
 answers = s.solution(equations, len(equations))
 
 with open(answers_file, 'w') as f:
