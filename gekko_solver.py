@@ -1,4 +1,3 @@
-import time
 from gekko import GEKKO
 from sympy import *
 import re
@@ -10,8 +9,8 @@ class Solution():
         self.num_equations = 0
 
     def process_equations(self, equations):
-        for i in range(len(equations)):
-            equations[i] = re.sub(r'e\*\*', 'e', equations[i])
+        # for i in range(len(equations)):
+        #     equations[i] = re.sub(r'e\*\*', 'e', equations[i])
         equations = [x.replace('=', '==') for x in equations]
         equations = [x.replace('sin', '_m.sin') for x in equations]
         equations = [x.replace('cos', '_m.cos') for x in equations]
@@ -19,10 +18,10 @@ class Solution():
         equations = [x.replace('sqrt', '_m.sqrt') for x in equations]
         equations = [x.replace('log', '_m.log') for x in equations]
         equations = [x.replace('ln', '_m.log') for x in equations]
-        equations = [x.replace('exp', '_m.exp') for x in equations]
+        equations = [x.replace('exp', '2.718281828459') for x in equations]
         equations = [x.replace('pi', '_m.pi') for x in equations]
-        equations = [x.replace('e', '_m.exp') for x in equations]
-        equations = [x.replace('E', '_m.exp') for x in equations]
+        equations = [x.replace('e', '2.718281828459') for x in equations]
+        equations = [x.replace('E', '2.718281828459') for x in equations]
         return equations
 
     def get_variables(self, equations):
@@ -54,16 +53,11 @@ class Solution():
             temp += _x + ','
         temp = temp[:-1]
         exec(f"_m.Equations([{temp}])")
-
-        start_time = time.time()
         _m.solve(disp=False)
-        end_time = time.time()
         # Retrieve variable values
         answers = [exec_dict[var].value for var in var_names]
         _d = {}
         for _ in range(len(var_names)):
             _d[var_names[_]] = answers[_]
-            
-        print(f"Time taken: {end_time - start_time} seconds")
         return _d
 
