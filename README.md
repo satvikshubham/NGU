@@ -2,7 +2,7 @@
 ## Overview
 It is an open source software package for large-scale non-linear optimization. It can be used to solve general nonlinear programming problems of the form:
 <br>
- $min_{x \in R^n} f(x)$
+$min_{x \in R^n} f(x)$
 <br>
 Such that
 
@@ -20,3 +20,22 @@ It is designed to exploit 1st and 2nd Hessian transformations, if provided other
 
 The Ipopt package is available from COIN-OR under the EPL (Eclipse Public License) open-source license and includes the source code for Ipopt. This means, it is available free of charge, also for commercial purposes. 
 
+## How to use
+Requirements are:
+- Gekko
+- Sympy
+### Setup
+Install requirements 
+```
+pip install -r requirements.txt
+```
+Write your equations in _Equations.txt file and execute the code_runner.py file.
+
+To execute code runner file
+```
+python code_runner.py
+```
+You can expect the answer now in _Answer.txt file.
+## References
+[Github - Ipopt](https://coin-or.github.io/Ipopt/)
+[Gekko library](https://gekko.readthedocs.io)
