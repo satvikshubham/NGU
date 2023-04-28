@@ -10,6 +10,8 @@ class Solution():
         self.num_equations = 0
 
     def process_equations(self, equations):
+        for i in range(len(equations)):
+            equations[i] = re.sub(r'e\*\*', 'e', equations[i])
         equations = [x.replace('=', '==') for x in equations]
         equations = [x.replace('sin', '_m.sin') for x in equations]
         equations = [x.replace('cos', '_m.cos') for x in equations]
@@ -19,8 +21,8 @@ class Solution():
         equations = [x.replace('ln', '_m.log') for x in equations]
         equations = [x.replace('exp', '_m.exp') for x in equations]
         equations = [x.replace('pi', '_m.pi') for x in equations]
-        equations = [x.replace('e', '_m.e') for x in equations]
-        equations = [x.replace('E', '_m.e') for x in equations]
+        equations = [x.replace('e', '_m.exp') for x in equations]
+        equations = [x.replace('E', '_m.exp') for x in equations]
         return equations
 
     def get_variables(self, equations):
@@ -64,4 +66,4 @@ class Solution():
             
         print(f"Time taken: {end_time - start_time} seconds")
         return _d
-        # print(abc.value, b.value, c.value, d.value, k.value, f.value, g.value, h.value, i.value, j.value)
+
