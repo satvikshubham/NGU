@@ -5,10 +5,10 @@ It is an open source software package for large-scale non-linear optimization. I
 $min_{x \in R^n} f(x)$
 <br>
 Such that
-
 $g^L \leq g(x) \leq g^U$
 and
 $x^L \leq x \leq x^U$
+<br>
 Where $x\in R^n$ are the optimization variables possibly with lower and upper bounds, $x^L \in (R \; U \; \{-\infty \})^n$ and $x^U \in (R \; U \; \{+\infty \})^n$ 
 With $x^L \leq x^U$, $ f:R^𝑛→R$ is the objective function, and 𝑔:ℝ𝑛→ℝ𝑚 are the general nonlinear constraints. 
 The functions $𝑓(𝑥)$ and $𝑔(𝑥)$ can be linear or nonlinear and convex or non-convex (but should be twice continuously differentiable). 
