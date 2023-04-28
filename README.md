@@ -73,7 +73,8 @@ abc = 0.022650801207
 1. You have to replace constants with the constant value.
 2. You have to replace the power operator with the ** operator.
 3. In case of no solution, the error would be printed in the terminal and not reflected in the _Answer.txt file.
-4. I tried covering all the corner cases while inputting the equations, but there might be some cases that I might have missed. Please feel free to raise an issue if you find any.
+<hr>
+I tried covering all the corner cases while inputting the equations, but there might be some cases that I might have missed. Please feel free to raise an issue if you find any.
 
 ## References
 [Github - Ipopt](https://coin-or.github.io/Ipopt/)  
