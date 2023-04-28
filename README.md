@@ -36,6 +36,44 @@ To execute code runner file
 python code_runner.py
 ```
 You can expect the answer now in _Answer.txt file.
+
+### Example usage
+This is the _Equations.txt file
+```
+5-(100+23*9)*abc+23*9*b-23*20*abc**2+23*20*b**2 = 0
+100*abc-(100+23*9)*b+23*9*c-23*20*b**2+23*20*c**2 = 0
+100*b-(100+23*9)*c+23*9*d-23*20*c**2+23*20*d**2 = 0
+100*c-(100+23*9)*d+23*9*k-23*20*d**2+23*20*k**2 = 0
+100*d-(100+23*9)*k+23*9*f-23*20*k**2+23*20*f**2 = 0
+100*k-(100+23*9)*f+23*9*g-23*20*f**2+23*20*g**2 = 0
+0.039+100*f+(-100+9*23)*g-9*10*h+20*23*g**2-20*10*h**2 = 0
+100*g-(100+9*10)*h-9*10*i-20*10*h**2-20*10*i**2 = 0
+100*h-(100+9*10)*i-9*10*j-20*10*i**2-20*10*j**2 = 0
+100*i-(100+9*10)*j-20*10*j**2 = 0
+```
+You run the code with
+```
+python code_runner.py
+```
+The answer now reflects in _Answers.txt file
+```
+Total time: 10.360125303268433 seconds
+f = -0.00010933152706
+h = -0.00018293356589
+i = -7.7073075802e-05
+k = 0.00052650972415
+d = 0.0018439213405
+g = -0.00041686078721
+j = -4.0566497419e-05
+b = 0.010341116978
+c = 0.0045853284287
+abc = 0.022650801207
+```
+## Limitations
+1. You have to replace constants with the constant value.
+2. You have to replace the power operator with the ** operator.
+3. In case of no solution, the error would be printed in the terminal and not reflected in the _Answer.txt file.
+
 ## References
 [Github - Ipopt](https://coin-or.github.io/Ipopt/)  
 [Gekko library](https://gekko.readthedocs.io)
