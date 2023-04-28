@@ -5,6 +5,7 @@ It is an open source software package for large-scale non-linear optimization. I
  $min_{x \in R^n} f(x)$
 <br>
 Such that
+
 $g^L \leq g(x) \leq g^U$
 and
 $x^L \leq x \leq x^U$f
@@ -13,7 +14,7 @@ With $x^L \leq x^U$, $𝑓:R^𝑛→R$ is the objective function, and 𝑔:ℝ�
 The functions $𝑓(𝑥)$ and $𝑔(𝑥)$ can be linear or nonlinear and convex or non-convex (but should be twice continuously differentiable). 
 The constraint functions, $𝑔(𝑥)$, have lower and upper bounds, $g^L \in (R \; U \; \{-\infty \})^m$ and $g^U \in (R \; U \; \{+\infty \})^m$  with $g^L \leq g^U$.
 
-It is designed to exploit 1st and 2nd Hessian transformations
+It is designed to exploit 1st and 2nd Hessian transformations, if provided otherwise it approximates using quasi-Newton methods, specifically a [BFGS update](https://en.wikipedia.org/wiki/Broyden–Fletcher–Goldfarb–Shanno_algorithm)
 
 ## Availability
 
