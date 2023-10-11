@@ -38,7 +38,7 @@ class Solution():
 
     def solution(self, equations, num_variables):
         equations = self.process_equations(equations)
-        _m = GEKKO(remote=True)
+        _m = GEKKO(remote=False)
         self.get_variables(equations)
         var_names = [str(var) for var in self.variables]
         # Create variables
