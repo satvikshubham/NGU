@@ -53,7 +53,7 @@ class Solution():
             temp += _x + ','
         temp = temp[:-1]
         exec(f"_m.Equations([{temp}])")
-        _m.solve(disp=False)
+        _m.solve(disp=True)
         # Retrieve variable values
         answers = [exec_dict[var].value for var in var_names]
         _d = {}

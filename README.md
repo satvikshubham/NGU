@@ -69,6 +69,17 @@ b = 0.010341116978
 c = 0.0045853284287
 abc = 0.022650801207
 ```
+### Extras
+To get the code to show the optimization method use, just change the following in gekko_solver.py
+From
+```
+_m.solve(disp=False)
+```
+To
+```
+_m.solve(disp=True)
+```
+
 ## Limitations
 1. You have to replace constants with the constant value.
 2. You have to replace the power operator with the ** operator.
