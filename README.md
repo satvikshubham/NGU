@@ -71,6 +71,7 @@ abc = 0.022650801207
 ```
 ### Extras
 To get the code to show the optimization method use, just change the following in gekko_solver.py (line number 56)
+<br>
 From
 ```
 _m.solve(disp=False)
