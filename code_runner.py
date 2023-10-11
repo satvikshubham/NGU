@@ -1,7 +1,7 @@
 import gekko_solver
 import time
 equations = []
-equations_file = '_Equations.txt'
+equations_file = '_Equations1.txt'
 with open(equations_file, 'r') as f:
     for line in f:
         equations.append(line.strip())
